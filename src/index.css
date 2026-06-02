@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── shadcn token system ─────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 240 10% 4%;
+    --card: 0 0% 97%;
+    --card-foreground: 240 10% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 94%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 94%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 94%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 88%;
+    --input: 240 6% 88%;
+    --ring: 240 6% 10%;
+    --radius: 0.5rem;
+    --sidebar-bg: 240 5% 96%;
+    --accent-h: 240; --accent-s: 6%; --accent-l: 10%;
+  }
+
+  .dark {
+    --background: 240 8% 8%;
+    --foreground: 0 0% 96%;
+    --card: 240 8% 10%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 8% 9%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 240 8% 8%;
+    --secondary: 240 6% 14%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 240 4% 58%;
+    --accent: 240 6% 14%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 18%;
+    --input: 240 5% 18%;
+    --ring: 240 5% 80%;
+    --sidebar-bg: 240 8% 6%;
+    --accent-h: 240; --accent-s: 5%; --accent-l: 80%;
+  }
+}
+
+/* ─── Accent overrides ────────────────────────────────────────────────────── */
+:root[data-accent="blue"]    { --accent-h:217; --accent-s:91%; --accent-l:60%; }
+.dark[data-accent="blue"]    { --accent-h:213; --accent-s:94%; --accent-l:68%; }
+:root[data-accent="violet"]  { --accent-h:262; --accent-s:83%; --accent-l:58%; }
+.dark[data-accent="violet"]  { --accent-h:263; --accent-s:70%; --accent-l:70%; }
+:root[data-accent="rose"]    { --accent-h:347; --accent-s:77%; --accent-l:60%; }
+.dark[data-accent="rose"]    { --accent-h:347; --accent-s:90%; --accent-l:70%; }
+:root[data-accent="amber"]   { --accent-h:38;  --accent-s:92%; --accent-l:50%; }
+.dark[data-accent="amber"]   { --accent-h:38;  --accent-s:95%; --accent-l:62%; }
+:root[data-accent="emerald"] { --accent-h:160; --accent-s:60%; --accent-l:45%; }
+.dark[data-accent="emerald"] { --accent-h:158; --accent-s:64%; --accent-l:55%; }
+
+/* ─── Accent utilities ────────────────────────────────────────────────────── */
+.accent-bg     { background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l)); }
+.accent-text   { color: hsl(var(--accent-h) var(--accent-s) var(--accent-l)); }
+.accent-border { border-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l)); }
+.accent-ring   { box-shadow: 0 0 0 2px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.35); }
+.accent-selected {
+  border-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  box-shadow: 0 0 0 1.5px hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+}
+.accent-bg-soft {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.1);
+}
+.accent-bg-active {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.14);
+  color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+@layer base {
+  * { @apply border-border; box-sizing: border-box; }
+  body { @apply bg-background text-foreground; font-feature-settings:"rlig" 1,"calt" 1; }
+}
+
+/* ─── Scrollbars ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:hsl(var(--border)); border-radius:9999px; }
+::-webkit-scrollbar-thumb:hover { background:hsl(var(--muted-foreground)/0.35); }
+
+/* ─── Keyframes ───────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity:0; transform:scale(0.94); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes slideRight {
+  from { opacity:0; transform:translateX(16px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes checkPop {
+  0%   { transform:scale(0); }
+  60%  { transform:scale(1.15); }
+  100% { transform:scale(1); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+.animate-fade-up   { animation: fadeUp   0.18s ease both; }
+.animate-scale-in  { animation: scaleIn  0.15s ease both; }
+.animate-slide-right { animation: slideRight 0.2s ease both; }
+
+/* ─── Theme transition (only on intentional changes) ─────────────────────── */
+.theme-transitioning * {
+  transition: background-color 120ms ease, border-color 120ms ease, color 80ms ease !important;
+}
+
+/* ─── Skeleton loader ─────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted-foreground)/0.08) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ─── Type badge color map ────────────────────────────────────────────────── */
+.badge-img   { background:#3b82f620; color:#3b82f6; }
+.badge-video { background:#8b5cf620; color:#8b5cf6; }
+.badge-vec   { background:#10b98120; color:#10b981; }
+.badge-doc   { background:#f59e0b20; color:#f59e0b; }
+.badge-font  { background:#ec489920; color:#ec4899; }
+.badge-other { background:#71717a20; color:#71717a; }
+
+.dark .badge-img   { background:#3b82f625; color:#60a5fa; }
+.dark .badge-video { background:#8b5cf625; color:#a78bfa; }
+.dark .badge-vec   { background:#10b98125; color:#34d399; }
+.dark .badge-doc   { background:#f59e0b25; color:#fbbf24; }
+.dark .badge-font  { background:#ec489925; color:#f472b6; }
+.dark .badge-other { background:#71717a25; color:#a1a1aa; }
+
+/* ─── Checkbox ────────────────────────────────────────────────────────────── */
+.asset-checkbox {
+  appearance: none;
+  width: 16px; height: 16px;
+  border: 1.5px solid hsl(var(--border));
+  border-radius: 4px;
+  background: hsl(var(--background)/0.9);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: border-color 100ms, background 100ms;
+  backdrop-filter: blur(4px);
+}
+.asset-checkbox:checked {
+  background: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  border-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+}
+.asset-checkbox:checked::after {
+  content: '';
+  width: 9px; height: 7px;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+  background: white;
+  animation: checkPop 0.15s ease;
+}
+
+/* ─── Sidebar nav item ────────────────────────────────────────────────────── */
+.nav-item {
+  @apply flex items-center gap-2.5 px-3 py-[7px] text-sm font-medium rounded-md cursor-pointer transition-colors relative w-full text-left;
+}
+.nav-item:not(.active) { @apply text-muted-foreground hover:bg-muted/60 hover:text-foreground; }
+.nav-item.active       { @apply bg-secondary text-foreground border border-border/60; }
+
+/* ─── Toolbar pill button ─────────────────────────────────────────────────── */
+.pill-btn {
+  @apply flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border border-border/60 bg-card
+         text-muted-foreground hover:text-foreground hover:bg-secondary transition-all;
+}
+.pill-btn.active {
+  border-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.5);
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.08);
+  color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+}
